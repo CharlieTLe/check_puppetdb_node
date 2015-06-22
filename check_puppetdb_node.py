@@ -62,10 +62,10 @@ def get_node(hostname, puppetdb):
     try:
         node = puppetdb.node(hostname)
     except requests.exceptions.HTTPError:
-        print('UNKNOWN - {0} is unknown to PuppetDB'.format(options.hostname))
+        print('UNKNOWN - {0} is unknown to PuppetDB'.format(hostname))
         sys.exit(3)
-    finally:
-        return node
+
+    return node
 
 
 def node_status(hostname, puppetdb):
@@ -105,7 +105,6 @@ def main():
                            ssl_verify=ssl_verify, ssl_key=options.clientkey,
                            ssl_cert=options.clientcert,
                            timeout=options.timeout)
-
     node = get_node(options.hostname, p)
 
     if not node.report_timestamp:
