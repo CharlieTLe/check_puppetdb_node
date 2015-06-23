@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#! /usr/bin/python2.7
 from __future__ import division
 from __future__ import print_function
 from __future__ import absolute_import
@@ -61,7 +61,7 @@ erroneous state and a CRITICAL will be returned.
 def get_node(hostname, puppetdb):
     try:
         node = puppetdb.node(hostname)
-    except requests.exceptions.HTTPError:
+    except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError, requests.exceptions.SSLError) as e:
         print('UNKNOWN - {0} is unknown to PuppetDB'.format(hostname))
         sys.exit(3)
 
